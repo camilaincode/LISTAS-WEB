@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICIO 4</title>
+</head>
+
+<body>
+    <P>Nome:</P>
+    <input type="text" id="nome">
+    <p>Peso:</p>
+    <input type="number" id="peso">
+    <p>Altura</p>
+    <input type="number" id="altura">
+    <p></p>
+    <button onclick="calcule()">calcule</button>
+    <p></p>
+    <p id="resultadoImc"></p>
+    <p id="classificacao"></p>
+    <img id="imagemPerfil" src="imagens/perfil.jpg" alt="imagem">
+
+    <script>
+        function calcule() {
+            const nome = document.getElementById("nome").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+            const resultadoImc = document.getElementById("resultadoImc");
+            const classificacao = document.getElementById("classificacao");
+            const img = document.getElementById("imagemPerfil");
+
+            const imc = peso / (altura * altura);
+            resultadoImc.textContent = nome + " seu imc é " + imc.toFixed(2);
+
+            if (imc < 18.5) {
+                classificacao.textContent = "abaixo do peso";
+                img.src = "imagens/abaixopeso.png";
+            } else if (imc < 25) {
+                classificacao.textContent = "Normal";
+                img.src = "imagens/normal.png";
+            } else if (imc < 30) {
+                classificacao.textContent = "sobrepeso";
+                img.src = "imagens/sobrepeso.png";
+            } else if (imc < 35) {
+                classificacao.textContent = "Obesidade grau 1";
+                img.src = "imagens/obesidade1.png";
+            } else if (imc < 40) {
+                classificacao.textContent = "Obesidade grau 2";
+                img.src = "imagens/obesidade2.png";
+            } else {
+                classificacao.textContent = "Obesidade grau 3";
+                img.src = "imagens/obesidade3.png";
+            }
+        }
+    </script>
+</body>
+
+</html>

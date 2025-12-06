@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICIO 10</title>
+</head>
+<style>
+    * {
+    box-sizing: border-box;
+    font-family: Pangolin;
+}
+
+body {
+    background-image: url(https://i.pinimg.com/736x/c9/a1/b1/c9a1b113445cbba294ba9885af96f0eb.jpg);
+}
+
+.calc_body {
+    width: 400px;
+    height: 650px;
+    background-color: #FE9CC6;
+    border: 2px solid #90304F;
+    border-radius: 15px;
+    box-shadow: 4px 4px 0 #C04774;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.calc_display {
+    width: 360px;
+    height: 160px;
+    background-color: #FE9CC6;
+    border: 2px solid #90304F;
+    border-radius: 15px;
+    display: flex;
+    margin-top: 20px;
+}
+
+.calc_text {
+    width: 350px;
+    height: 150px;
+    background-color: #ECFBFF;
+    margin: auto;
+    border: 2px solid #90304F;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+    flex-direction: column;
+}
+
+.calc_form {
+    font-size: 20px;
+    padding: 5px;
+    padding-top: 20px;
+    color: #8E715A;
+    margin: 0;
+}
+
+.calc_number {
+    font-size: 75px;
+    color: #5D2708;
+    margin: 0;
+    padding: 0;
+}
+
+.calc_teclado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.calc_tecla {
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    margin: 4px;
+    background-color: #D0EEFD;
+    border: 2px solid #305a90;
+    color: #083e5d;
+    font-size: 25px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 0 #305a90;
+    padding: 0.1em 0.25em;
+    transition: all 0.3s ease-in-out;
+}
+
+.calc_tecla:hover {
+    transform: translateY(4px) translateX(2px);
+    box-shadow: 0 0 0 0;
+}
+</style>
+<body>
+    <div class="calc_body">
+        <div class="calc_display">
+            <div class="calc_text">
+                <p class="calc_form" id="formula"> </p>
+                <p class="calc_number" id="numero"> </p>
+            </div>
+        </div>
+        <div class="calc_teclado">
+            <button class="calc_tecla" onclick="apagarTudo()">C</button>
+            <button class="calc_tecla" onclick="indicadores()">+/-</button>
+            <button class="calc_tecla" onclick="adicionarOperacao('%')">%</button>
+            <button class="calc_tecla" onclick="adicionarOperacao('/')">÷</button>
+
+            <button class="calc_tecla" onclick="adicionarNumero('7')">7</button>
+            <button class="calc_tecla" onclick="adicionarNumero('8')">8</button>
+            <button class="calc_tecla" onclick="adicionarNumero('9')">9</button>
+            <button class="calc_tecla" onclick="adicionarOperacao('*')">x</button>
+
+            <button class="calc_tecla" onclick="adicionarNumero('4')">4</button>
+            <button class="calc_tecla" onclick="adicionarNumero('5')">5</button>
+            <button class="calc_tecla" onclick="adicionarNumero('6')">6</button>
+            <button class="calc_tecla" onclick="adicionarOperacao('-')">-</button>
+
+            <button class="calc_tecla" onclick="adicionarNumero('1')">1</button>
+            <button class="calc_tecla" onclick="adicionarNumero('2')">2</button>
+            <button class="calc_tecla" onclick="adicionarNumero('3')">3</button>
+            <button class="calc_tecla" onclick="adicionarOperacao('+')">+</button>
+
+            <button class="calc_tecla" onclick="apagar()"><i class="fa-solid fa-delete-left"></i></button>
+            <button class="calc_tecla" onclick="adicionarNumero('0')">0</button>
+            <button class="calc_tecla" onclick="virgula()">.</button>
+            <button class="calc_tecla" onclick="calcular()">=</button>
+        </div>
+    </div>
+    <script>
+        let numeroAtual = '';
+let numeroAnterior = '';
+let operacaoAtual = '';
+
+function adicionarNumero(numero) {
+    numeroAtual += numero;
+    document.getElementById('numero').innerHTML = numeroAtual;
+    if (numeroAnterior !== '') {
+        document.getElementById('formula').innerHTML = numeroAnterior + operacaoAtual + numeroAtual;
+    }
+}
+
+function adicionarOperacao(operacao) {
+    if (numeroAtual == '') return;
+    if (numeroAnterior !== "") {
+        calcular();
+    }
+    operacaoAtual = operacao;
+    numeroAnterior = numeroAtual;
+    numeroAtual = '';
+    document.getElementById('formula').innerHTML = numeroAnterior + operacao;
+    document.getElementById('numero').innerHTML = " ";
+}
+
+function calcular() {
+    if (numeroAnterior == '' || numeroAtual == '') return;
+    let resultado;
+    let anterior = parseFloat(numeroAnterior);
+    let atual = parseFloat(numeroAtual);
+    switch (operacaoAtual) {
+        case '+':
+            resultado = anterior + atual;
+            break;
+
+        case '-':
+            resultado = anterior - atual;
+            break;
+
+        case '*':
+            resultado = anterior * atual;
+            break;
+
+        case '/':
+            resultado = anterior / atual;
+            break;
+
+        case '%':
+            resultado = Math.round((anterior * atual) / 100)
+            break;
+
+        default:
+            return;
+    }
+
+    numeroAtual = resultado.toString();
+    operacaoAtual = '';
+    numeroAnterior = '';
+    document.getElementById('numero').innerHTML = numeroAtual;
+}
+
+function apagarTudo() {
+    numeroAnterior = '';
+    numeroAtual = '';
+    operacaoAtual = '';
+    document.getElementById('numero').innerHTML = '';
+    document.getElementById('formula').innerHTML = '';
+}
+
+function apagar() {
+    numeroAtual = numeroAtual.substring(0, numeroAtual.length - 1);
+    document.getElementById('numero').innerHTML = numeroAtual;
+}
+
+function indicadores() {
+    let numero = parseFloat(numeroAtual);
+    if (numero > 0) {
+        numero = 0 - numero;
+    } else {
+        numero = (-numero)
+    }
+
+    numeroAtual = numero
+    document.getElementById('numero').innerHTML = numeroAtual;
+}
+
+function virgula() {
+    numeroAtual += '.'
+}
+    </script>
+</body>
+</html>

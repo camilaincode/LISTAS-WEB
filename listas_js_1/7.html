@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICIO 7</title>
+</head>
+<body>
+    <label for="text">palavra:</label>
+    <input id="texto" type="text">
+    <button onclick="verificar()">Verificar</button>
+    <script>
+        function verificar() {
+            const palavra = document.getElementById("texto").value.toLowerCase().trim();
+
+            const invertida = palavra.split("").reverse().join("");
+
+            if (palavra === invertida) {
+                alert(palavra + " palíndromo");
+            } else {
+                alert(palavra + " não palíndromo");
+            }
+        }
+    </script>
+</body>
+</html>

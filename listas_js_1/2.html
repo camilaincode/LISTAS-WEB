@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICIO 2</title>
+</head>
+
+<body>
+    <button onclick="show()">Mostrar</button>
+
+    <p id="String"></p>
+    <p id="Number"></p>
+    <p id="Boolean"></p>
+    <p id="Indefinido"></p>
+    <p id="Null"></p>
+    <p id="Obj"></p>
+    <p id="Array"></p>
+
+    <script>
+        function show() {
+            let nome = "Camila";
+            let idade = 19;
+            let estudante = true;
+            let endereco;
+            let cpf = null;
+            let pessoa = { cidade: "Blumenau" };
+            let numeros = [1, 2, 3];
+
+            document.getElementById("String").innerHTML = "tipo da variável do nome: " + typeof nome;
+            document.getElementById("Number").innerHTML = "tipo da variável da idade: " + typeof idade;
+            document.getElementById("Boolean").innerHTML = "tipo da variável do estudante: " + typeof estudante;
+            document.getElementById("Indefinido").innerHTML = "tipo da variável do endereço: " + typeof endereco;
+            document.getElementById("Null").innerHTML = "tipo da variável do cpf: " + typeof cpf;
+            document.getElementById("Obj").innerHTML = "tipo da variável da pessoa: " + typeof pessoa;
+            document.getElementById("Array").innerHTML = "tipo da variável dos numeros: " + typeof numeros;
+        }
+    </script>
+
+</body>
+
+</html>
